@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import logo from "../assets/logo.png";
+import logo from "../assets/Logo.png";
 
 export default function Navbar() {
   const { cart } = useCart();
