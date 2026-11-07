@@ -2,54 +2,76 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+
 import Dashboard from "./pages/frontpages/Dashboard";
 import ProductDetail from "./pages/frontpages/ProductDetail";
 import Cart from "./pages/frontpages/Cart";
 import Checkout from "./pages/frontpages/Checkout";
+import Favorites from "./pages/frontpages/Favorites";
+
+import AdminDashboard from "./pages/adminpages/AdminDashboard";
+import ProductForm from "./pages/adminpages/ProductForm";
+import ProductEdit from "./pages/adminpages/ProductEdit";
 
 import { CartProvider } from "./context/CartContext";
 import { FavoriteProvider } from "./context/FavoriteContext";
-import Favorites from "./pages/frontpages/Favorites";
+import { ProductProvider } from "./utils/ProductContext";
 
 function App() {
   return (
     <CartProvider>
       <FavoriteProvider>
-        <BrowserRouter>
-          <Navbar />
+        <ProductProvider>
+          <BrowserRouter>
+            <Navbar />
 
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  <Hero />
-                  <Dashboard />
-                </>
-              }
-            />
+            <Routes>
+              {/* Halaman utama */}
+              <Route
+                path="/"
+                element={
+                  <>
+                    <Hero />
+                    <Dashboard />
+                  </>
+                }
+              />
 
-            <Route
-              path="/product/:id"
-              element={<ProductDetail />}
-            />
+              {/* Detail produk */}
+              <Route
+                path="/product/:id"
+                element={<ProductDetail />}
+              />
 
-            <Route
-              path="/cart"
-              element={<Cart />}
-            />
+              {/* Keranjang */}
+              <Route path="/cart" element={<Cart />} />
 
-            <Route
-              path="/checkout"
-              element={<Checkout />}
-            />
-            <Route
-  path="/favorites"
-  element={<Favorites />}
-/>
-          </Routes>
+              {/* Checkout */}
+              <Route path="/checkout" element={<Checkout />} />
 
-        </BrowserRouter>
+              {/* Favorit */}
+              <Route path="/favorites" element={<Favorites />} />
+
+              {/* Admin */}
+              <Route
+                path="/admin/dashboard"
+                element={<AdminDashboard />}
+              />
+
+              {/* Tambah produk */}
+              <Route
+                path="/admin/add-product"
+                element={<ProductForm />}
+              />
+
+              {/* Edit produk */}
+              <Route
+                path="/admin/edit-product/:id"
+                element={<ProductEdit />}
+              />
+            </Routes>
+          </BrowserRouter>
+        </ProductProvider>
       </FavoriteProvider>
     </CartProvider>
   );
